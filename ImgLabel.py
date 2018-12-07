@@ -10,11 +10,12 @@ class ImgLabel(QLabel):
     y0 = 0
     x1 = 0
     y1 = 0
+    points =[]
 
     def mousePressEvent(self, event):
         self.x0 = event.x()
         self.y0 = event.y()
-        print(self.x0, self.y0)
+
         self.update()
 
     def mouseMoveEvent(self, event):
@@ -25,8 +26,10 @@ class ImgLabel(QLabel):
     def paintEvent(self, event):
         super().paintEvent(event)
         point = QPoint(self.x0, self.y0)
+        self.points.append(point)
         painter = QPainter(self)
         painter.setPen(QPen(Qt.red, 4, Qt.SolidLine))
-        painter.drawPoint(point)
+        for p in self.points:
+            painter.drawPoint(p)
 
 

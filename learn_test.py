@@ -1,38 +1,41 @@
-# coding=utf-8
-
-from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QSizePolicy
-from PyQt5.QtCore import QRect, Qt
-from PyQt5.QtGui import QImage, QPixmap, QPainter, QPen, QGuiApplication
-import cv2
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 import sys
-from ImgLabel import ImgLabel
 
-class Example(QWidget):
+class Win(QWidget):
     def __init__(self):
-        super().__init__()
-        self.initUI()
+        super(Win, self).__init__()
+        self.setObjectName("self")
+        self.resize(400, 300)
+        self.listWidget = QtWidgets.QListWidget(self)
+        self.listWidget.setGeometry(QtCore.QRect(10, 20, 256, 192))
+        self.listWidget.setObjectName("listWidget")
+        self.pushButton = QtWidgets.QPushButton(self)
+        self.pushButton.setGeometry(QtCore.QRect(280, 60, 75, 23))
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(self.add)
 
-    def initUI(self):
-        self.resize(675, 300)
-        self.setWindowTitle('关注微信公众号：学点编程吧--opencv、PyQt5的小小融合')
+        self.retranslateUi()
+        QtCore.QMetaObject.connectSlotsByName(self)
 
-        self.lb = ImgLabel(self)
-        self.lb.setGeometry(QRect(140, 30, 511, 241))
+    def retranslateUi(self):
+        _translate = QtCore.QCoreApplication.translate
+        self.setWindowTitle(_translate("self", "self"))
+        self.pushButton.setText(_translate("self", "PushButton"))
 
-        img = cv2.imread('1-3.jpg')
-        height, width, bytesPerComponent = img.shape
-        bytesPerLine = 3 * width
-        cv2.cvtColor(img, cv2.COLOR_BGR2RGB, img)
-        QImg = QImage(img.data, width, height, bytesPerLine, QImage.Format_RGB888)
-        pixmap = QPixmap.fromImage(QImg)
+    def add(self):
+        self.listWidget.addItem('123')
+        index=self.listWidget.currentRow()+1
+        if index:
+            self.listWidget.item(index-1).setBackground(QColor('green'))        
+            self.listWidget.item(index).setBackground(QColor('red'))
+        else:
+            self.listWidget.item(index).setBackground(QColor('blue'))
+        self.listWidget.setCurrentRow(self.listWidget.currentRow()+1)
 
-        self.lb.setPixmap(pixmap)
-        self.lb.setCursor(Qt.CrossCursor)
-        self.lb.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        self.show()
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = Example()
-    sys.exit(app.exec_())
+app=QApplication(sys.argv)
+win=Win()
+win.show()
+sys.exit(app.exec_())

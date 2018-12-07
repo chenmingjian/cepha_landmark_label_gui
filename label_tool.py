@@ -41,7 +41,6 @@ class Example(QMainWindow, Ui_MainWindow):
         self.open_img()
         # self.actionOpen.triggered.connect(self.open_img)
 
-
     def center(self):
         qr = self.frameGeometry()
         cp = QDesktopWidget().availableGeometry().center()
