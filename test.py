@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1151, 795)
+        MainWindow.resize(1151, 650)
         MainWindow.setIconSize(QtCore.QSize(0, 0))
         MainWindow.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -43,15 +43,21 @@ class Ui_MainWindow(object):
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
+        self.menuDigitize = QtWidgets.QMenu(self.menubar)
+        self.menuDigitize.setObjectName("menuDigitize")
         MainWindow.setMenuBar(self.menubar)
         self.actionOpen = QtWidgets.QAction(MainWindow)
         self.actionOpen.setCheckable(False)
         self.actionOpen.setChecked(False)
         self.actionOpen.setEnabled(True)
         self.actionOpen.setObjectName("actionOpen")
+        self.actionDigitize_Tools = QtWidgets.QAction(MainWindow)
+        self.actionDigitize_Tools.setObjectName("actionDigitize_Tools")
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addSeparator()
+        self.menuDigitize.addAction(self.actionDigitize_Tools)
         self.menubar.addAction(self.menuFile.menuAction())
+        self.menubar.addAction(self.menuDigitize.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -60,5 +66,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
+        self.menuDigitize.setTitle(_translate("MainWindow", "Digitize"))
         self.actionOpen.setText(_translate("MainWindow", "Open Image"))
+        self.actionDigitize_Tools.setText(_translate("MainWindow", "Digitize Tools"))
 

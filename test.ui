@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1151</width>
-    <height>795</height>
+    <height>650</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -78,7 +78,14 @@
     <addaction name="actionOpen"/>
     <addaction name="separator"/>
    </widget>
+   <widget class="QMenu" name="menuDigitize">
+    <property name="title">
+     <string>Digitize</string>
+    </property>
+    <addaction name="actionDigitize_Tools"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuDigitize"/>
   </widget>
   <action name="actionOpen">
    <property name="checkable">
@@ -92,6 +99,11 @@
    </property>
    <property name="text">
     <string>Open Image</string>
+   </property>
+  </action>
+  <action name="actionDigitize_Tools">
+   <property name="text">
+    <string>Digitize Tools</string>
    </property>
   </action>
  </widget>
