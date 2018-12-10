@@ -1,72 +1,74 @@
-import sys
-
-from PyQt5 import QtCore
-from PyQt5.QtCore import pyqtSignal, QSize, Qt
-from PyQt5.QtWidgets import QMainWindow, QListWidgetItem, QListWidget, QApplication, QWidget, QHBoxLayout, QLineEdit, \
-    QPushButton
+from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtCore import Qt, QModelIndex, pyqtSignal
+from PyQt5.QtWidgets import QMainWindow, QListWidgetItem, QListWidget
 
 from Digitize import Ui_MainWindow
 import numpy as np
-from ImgLabel import cv2qt
 
-tmp_landmark_name_list = ['N', 'S', 'P', 'Ba', 'Bo', 'Or', 'Ptm', 'ANS', 'PNS', 'SPr', 'A', 'UI', 'UIA', 'LI', 'LIA', 'Id', 'Pog', 'B', 'Me', 'Gn', 'Go', 'Ar', 'Co', 'G', 'N', 'Prn', 'Sn', 'Ls', 'St', 'Li', 'Si', 'Pog', 'Gn', 'Me']
+tmp_landmark_name_list = np.loadtxt('landmark_name.txt', dtype=str)
 
 
-# class ItemWidget(QWidget):
-#
-#     item = pyqtSignal(QListWidgetItem)
-#
-#     def __init__(self, text, item, *args, **kwargs):
-#         super(ItemWidget, self).__init__(*args, **kwargs)
-#         self._item = item
-#         layout = QHBoxLayout(self)
-#         layout.setContentsMargins(0, 0, 0, 0)
-#         line_edit = QLineEdit(text, self)
-#         line_edit.setAlignment(Qt.AlignCenter)
-#         line_edit.setFrame(False)
-#         # line_edit.setEnabled(False)
-#         line_edit.setFocusPolicy(Qt.NoFocus)
-#         layout.addWidget(line_edit)
-#         line_edit.setCursor(Qt.ArrowCursor)
-#
-#
-#     def doDeleteItem(self):
-#         self.item.emit(self._item)
-#
-#     def sizeHint(self):
-#         # 决定item的高度
-#         return QSize(100, 40)
+class ListWidget(QListWidget):
+    current_item_num = 0
+    modify = False
+
+    def __init__(self, name_list = tmp_landmark_name_list):
+        super().__init__()
+        self.insertItems(0, name_list)
+        self.setMinimumWidth(self.sizeHintForColumn(0))
+        first_list_item = self.item(self.current_item_num)
+        self.setCurrentItem(first_list_item)
+
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.sizePolicy().hasHeightForWidth())
+        self.setSizePolicy(sizePolicy)
+        self.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.setObjectName("listWidget")
+
+    noItemInList = pyqtSignal()
+
+    def select_next_item(self):
+        if self.modify:
+            self.modify = False
+        else:
+            self.current_item_num += 1
+        next_item = self.item(self.current_item_num)
+        if next_item is None:
+            self.noItemInList.emit()
+        self.setCurrentItem(next_item)
+
+    itemClicked = pyqtSignal(int)
+
+    def mousePressEvent(self, event):
+        super().mouseMoveEvent(event)
+        num = self.currentIndex().row()
+        if num < self.current_item_num:
+            super().mouseMoveEvent(event)
+            print(num)
+            self.itemClicked.emit(num)
+            self.modify = True
+
+    def mouseMoveEvent(self, *args, **kwargs):
+        pass
+
+    def on_item_selected(self):
+        pass
 
 
 class ToolWidget(QMainWindow, Ui_MainWindow):
+
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.set_list_widget()
-        self.move(100, 200)
-
+        self.move(20, 150)
         self.setWindowFlags(Qt.WindowStaysOnTopHint)
         # 取消置顶
         # self.setWindowFlags(Qt.Widget)
-        self.show()
+        self.listWidget = ListWidget()
+        self.horizontalLayout_3.addWidget(self.listWidget)
 
-    def display(self):
-        self.show()
-
-    def set_list_widget(self):
-        self.listWidget.insertItems(0, tmp_landmark_name_list)
-        self.listWidget.setMinimumWidth(self.listWidget.sizeHintForColumn(0))
-
-    def show_biger_img(self, part):
-        # tmp = cv2qt(part)
-        # print(str(part[0][0]))
-        # self.label_3.setText(str(part))
-        # print(1)
+    def show_bigger_img(self, part):
         self.label_3.setPixmap(part)
 
-
-# if __name__ == '__main__':
-#
-#     app = QApplication(sys.argv)
-#     tool = ToolWidget()
-#     app.exec_()

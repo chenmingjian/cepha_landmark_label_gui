@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="demo">
+    <file>X_demo.jpg</file>
+    <file>trace_demo.png</file>
+  </qresource>
+</RCC>

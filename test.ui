@@ -6,12 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1151</width>
-    <height>650</height>
+    <width>1150</width>
+    <height>600</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Landmark Label Tool</string>
   </property>
   <property name="iconSize">
    <size>
@@ -22,10 +28,19 @@
   <property name="toolButtonStyle">
    <enum>Qt::ToolButtonIconOnly</enum>
   </property>
+  <property name="documentMode">
+   <bool>false</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="baseSize">
+    <size>
+     <width>1500</width>
+     <height>1000</height>
+    </size>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0">
       <property name="leftMargin">
        <number>0</number>
       </property>
@@ -64,7 +79,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1151</width>
+     <width>1150</width>
      <height>23</height>
     </rect>
    </property>
@@ -76,6 +91,7 @@
      <string>File</string>
     </property>
     <addaction name="actionOpen"/>
+    <addaction name="actionOpen_Dir"/>
     <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuDigitize">
@@ -104,6 +120,11 @@
   <action name="actionDigitize_Tools">
    <property name="text">
     <string>Digitize Tools</string>
+   </property>
+  </action>
+  <action name="actionOpen_Dir">
+   <property name="text">
+    <string>Open Dir</string>
    </property>
   </action>
  </widget>
