@@ -42,13 +42,20 @@ class ListWidget(QListWidget):
     itemClicked = pyqtSignal(int)
 
     def mousePressEvent(self, event):
-        super().mouseMoveEvent(event)
+        super().mousePressEvent(event)
         num = self.currentIndex().row()
         if num < self.current_item_num:
-            super().mouseMoveEvent(event)
-            print(num)
+            super().mousePressEvent(event)
             self.itemClicked.emit(num)
             self.modify = True
+        else:
+            current_item_num = self.item(self.current_item_num)
+            self.setCurrentItem(current_item_num)
+
+    def clear_current_item_num(self):
+        self.current_item_num = 0
+        first_list_item = self.item(self.current_item_num)
+        self.setCurrentItem(first_list_item)
 
     def mouseMoveEvent(self, *args, **kwargs):
         pass

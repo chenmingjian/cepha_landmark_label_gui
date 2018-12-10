@@ -14,7 +14,7 @@ def cv_resize_img(img_path):
     cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB, cv_img)
     cp = QDesktopWidget().availableGeometry()
     scale = height / cp.bottom()*1.1
-    cv_img = cv2.resize(cv_img, (int(height / scale), int(width / scale)))
+    cv_img = cv2.resize(cv_img, (int(width / scale), int(height / scale)))
     return cv_img, scale
 
 
@@ -50,19 +50,21 @@ class ImgLabel(QLabel):
     modify = False
     modify_index = -1
     noRedDot = False
+    save_path = ''
 
-    def __init__(self, img_path):
+    def __init__(self, img_path, save_path):
         super().__init__()
         self.setupUI()
-        if img_path is None:
+        if img_path is None or save_path is None:
             return
+        self.save_path = save_path
         cv_img, self.scale = cv_resize_img(img_path)
         self.cv_img = np.array(cv_img)
         self.cv_img_red_dot = np.array(cv_img)
         q_pixmap = cv2qt(cv_img)
         self.setPixmap(q_pixmap)
 
-    def change_img(self, img_path):
+    def change_img(self, img_path, save_path):
         self.points_list = []
         self.cv_img = None
         self.cv_img_red_dot = None
@@ -71,6 +73,7 @@ class ImgLabel(QLabel):
         self.modify = False
         self.modify_index = -1
         self.noRedDot = False
+        self.save_path = save_path
         cv_img, self.scale = cv_resize_img(img_path)
         self.cv_img = np.array(cv_img)
         self.cv_img_red_dot = np.array(cv_img)
@@ -105,7 +108,6 @@ class ImgLabel(QLabel):
             self.cv_img_red_dot = np.array(self.cv_img)
             for point in self.points_list:
                 cv2.rectangle(self.cv_img_red_dot, (point.x()-2, point.y()-2), (point.x()+2, point.y()+2), (255, 0, 0), -1)
-                print((point.x(), point.y()))
             self.update()
             self.mouseMoveEvent(event)
             self.save_points_txt()
@@ -145,8 +147,8 @@ class ImgLabel(QLabel):
     def no_item(self):
         self.noRedDot =True
 
-    def save_points_txt(self, dir='.'):
-        with open('test.txt', 'w') as f:
+    def save_points_txt(self,):
+        with open(self.save_path, 'w') as f:
             for i in self.points_list:
                 x = int(i.x() * self.scale)
                 y = int(i.y() * self.scale)

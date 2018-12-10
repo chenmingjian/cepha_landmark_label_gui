@@ -53,26 +53,16 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item alignment="Qt::AlignLeft">
-       <widget class="QListWidget" name="listWidget">
+      <item>
+       <widget class="QPlainTextEdit" name="plainTextEdit">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="sizeAdjustPolicy">
-         <enum>QAbstractScrollArea::AdjustToContents</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPlainTextEdit" name="plainTextEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
         </property>
         <property name="sizeAdjustPolicy">
          <enum>QAbstractScrollArea::AdjustIgnored</enum>
@@ -92,7 +82,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>OK</string>
+         <string> </string>
         </property>
        </widget>
       </item>
@@ -105,7 +95,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Cancel</string>
+         <string>Next&gt;</string>
         </property>
        </widget>
       </item>
@@ -123,6 +113,7 @@
  </widget>
  <resources>
   <include location="rcs.qrc"/>
+  <include location="../../.designer/backup/rcs.qrc"/>
  </resources>
  <connections/>
 </ui>

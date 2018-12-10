@@ -38,21 +38,13 @@ class Ui_MainWindow(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        # self.listWidget = QtWidgets.QListWidget(self.centralwidget)
-        # sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
-        # sizePolicy.setHorizontalStretch(0)
-        # sizePolicy.setVerticalStretch(0)
-        # sizePolicy.setHeightForWidth(self.listWidget.sizePolicy().hasHeightForWidth())
-        # self.listWidget.setSizePolicy(sizePolicy)
-        # self.listWidget.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
-        # self.listWidget.setObjectName("listWidget")
-        # self.horizontalLayout_3.addWidget(self.listWidget, 0, QtCore.Qt.AlignLeft)
         self.plainTextEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.plainTextEdit.sizePolicy().hasHeightForWidth())
         self.plainTextEdit.setSizePolicy(sizePolicy)
+        self.plainTextEdit.setFocusPolicy(QtCore.Qt.NoFocus)
         self.plainTextEdit.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.horizontalLayout_3.addWidget(self.plainTextEdit)
@@ -88,7 +80,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Digitize"))
-        self.pushButton.setText(_translate("MainWindow", "OK"))
-        self.pushButton_2.setText(_translate("MainWindow", "Cancel"))
+        self.pushButton.setText(_translate("MainWindow", " "))
+        self.pushButton_2.setText(_translate("MainWindow", "Next>"))
 
 import rcs_rc
